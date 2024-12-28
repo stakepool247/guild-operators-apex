@@ -4,14 +4,14 @@
   "ConwayGenesisFile": "/opt/cardano/cnode/files/conway-genesis.json",
   "EnableP2P": true,
   "LastKnownBlockVersion-Alt": 0,
-  "LastKnownBlockVersion-Major": 2,
+  "LastKnownBlockVersion-Major": 7,
   "LastKnownBlockVersion-Minor": 0,
-  "MinNodeVersion": "10.1.3",
+  "MinNodeVersion": "9.2.1",
   "PeerSharing": false,
   "Protocol": "Cardano",
   "RequiresNetworkMagic": "RequiresMagic",
   "ShelleyGenesisFile": "/opt/cardano/cnode/files/shelley-genesis.json",
-  "SnapshotInterval": 86400,
+  "SnapshotInterval": 43200,
   "MempoolCapacityBytesOverride": 8388608,
   "EnableLogging": true,
   "EnableLogMetrics": false,
@@ -68,10 +68,10 @@
       "/opt/cardano/cnode/logs/node.json"
     ]
   ],
-  "hasEKG": 12788,
+  "hasEKG": 12959,
   "hasPrometheus": [
-    "127.0.0.1",
-    12798
+    "0.0.0.0",
+    12949
   ],
   "minSeverity": "Info",
   "options": {
@@ -105,5 +105,12 @@
       "scFormat": "ScJson",
       "scRotation": null
     }
-  ]
+  ],
+  "MaxConcurrencyBulkSync": 1,
+  "MaxConcurrencyDeadline": 2,
+  "PBftSignatureThreshold": 0.6,
+  "ByronGenesisHash": "6b91f3c3d68ebeaa8dede86ba371a56ae60547dec6a8713d1fca6e403caa4605",
+  "ShelleyGenesisHash": "4fad52e08057e9cbfe71411719205c14c2e61e4dd4123541d0b6fa92971c89b0",
+  "AlonzoGenesisHash": "1cd94b66eade0670885744a858accdb2c3249e43e247db2c66b158050ec6a3e4",
+  "ConwayGenesisHash": "01649daebfc1ae5646c6aab2bf07533cdf626fd49e270ac4258be7fe253c3cc1"
 }

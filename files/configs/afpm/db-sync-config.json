@@ -1,11 +1,11 @@
 {
   "EnableLogMetrics": false,
   "EnableLogging": true,
-  "NetworkName": "sanchonet",
+  "NetworkName": "afpm",
   "NodeConfigFile": "/opt/cardano/cnode/files/config.json",
   "PrometheusPort": 8080,
   "RequiresNetworkMagic": "RequiresMagic",
-  "EnableFutureGenesis": false,
+  "EnableFutureGenesis": true,
   "defaultBackends": [
     "KatipBK"
   ],
@@ -17,8 +17,7 @@
   ],
   "insert_options": {
     "tx_out": {
-      "value": "consumed",
-      "use_address_table": true
+      "value": "consumed"
     },
     "ledger": "enable",
     "shelley": {
@@ -37,7 +36,8 @@
     "json_type": "text",
     "offchain_pool_data": "enable",
     "pool_stat": "enable",
-    "tx_cbor": "enable"
+    "pool_stats": "enable",
+    "tx_cbor": "disable"
   },
   "minSeverity": "Info",
   "options": {

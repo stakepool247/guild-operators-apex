@@ -6,8 +6,8 @@
 # User Variables - Change as desired     #
 # command line flags override set values #
 ##########################################
-#G_ACCOUNT="cardano-community"  # Override github GUILD account if you forked the project
-#NETWORK='mainnet'              # Connect to specified network instead of public network (Default: connect to public cardano network)
+#G_ACCOUNT="Scitz0"             # Override github GUILD account if you forked the project
+#NETWORK='afpm'                 # Connect to specified network instead of public network (Default: connect to public cardano network)
 #WANT_BUILD_DEPS='Y'            # Skip installing OS level dependencies (Default: will check and install any missing OS level prerequisites)
 #FORCE_OVERWRITE='N'            # Force overwrite of all config files (topology.json, config.json and genesis files)
 #SCRIPTS_FORCE_OVERWRITE='N'    # Force overwrite of all scripts (including normally saved user config sections in env, cnode.sh and gLiveView.sh)
@@ -61,11 +61,11 @@ versionCheck() { printf '%s\n%s' "${1//v/}" "${2//v/}" | sort -C -V; } #$1=avail
 usage() {
   cat <<-EOF >&2
 
-		Usage: $(basename "$0") [-n <mainnet|guild|preprod|preview|sanchonet>] [-p path] [-t <name>] [-b <branch>] [-u] [-s [p][b][l][m][d][c][o][w][x][f][s]]
+		Usage: $(basename "$0") [-n <afpm>] [-p path] [-t <name>] [-b <branch>] [-u] [-s [p][b][l][m][d][c][o][w][x][f][s]]
 		Set up dependencies for building/using common tools across cardano ecosystem.
 		The script will always update dynamic content from existing scripts retaining existing user variables
 
-		-n    Connect to specified network instead of mainnet network (Default: connect to cardano mainnet network) eg: -n guild
+		-n    Connect to specified network instead of afpm network (Default: connect to cardano afpm network) eg: -n afpt
 		-p    Parent folder path underneath which the top-level folder will be created (Default: /opt/cardano)
 		-t    Alternate name for top level folder - only alpha-numeric chars allowed (Default: cnode)
 		-b    Use alternate branch of scripts to download - only recommended for testing/development (Default: master)
@@ -89,8 +89,8 @@ usage() {
 
 # Set Default Environment Variables
 set_defaults() {
-  [[ -z ${G_ACCOUNT} ]] && G_ACCOUNT="cardano-community"
-  [[ -z ${NETWORK} ]] && NETWORK='mainnet'
+  [[ -z ${G_ACCOUNT} ]] && G_ACCOUNT="Scitz0"
+  [[ -z ${NETWORK} ]] && NETWORK='afpm'
   [[ -z ${WANT_BUILD_DEPS} ]] && WANT_BUILD_DEPS='N'
   [[ -z ${FORCE_OVERWRITE} ]] && FORCE_OVERWRITE='N'
   [[ -z ${SCRIPTS_FORCE_OVERWRITE} ]] && SCRIPTS_FORCE_OVERWRITE='N'
@@ -109,13 +109,13 @@ set_defaults() {
   [[ -z "${BRANCH}" ]] && BRANCH="master"
   [[ "${SUDO}" = 'Y' ]] && sudo="sudo" || sudo=""
   [[ "${SUDO}" = 'Y' && $(id -u) -eq 0 ]] && err_exit "Please run as non-root user."
-  [[ -z "${CARDANO_NODE_VERSION}" ]] && CARDANO_NODE_VERSION="$(curl -sfk "https://raw.githubusercontent.com/${G_ACCOUNT}/guild-operators/${BRANCH}/files/docker/node/release-versions/cardano-node-latest.txt" || echo "10.1.3")"
-  [[ -z "${CARDANO_CLI_VERSION}" ]] && CARDANO_CLI_VERSION="$(curl -sfk "https://raw.githubusercontent.com/${G_ACCOUNT}/guild-operators/${BRANCH}/files/docker/node/release-versions/cardano-cli-latest.txt" || echo "10.1.1.0")"
+  [[ -z "${CARDANO_NODE_VERSION}" ]] && CARDANO_NODE_VERSION="$(curl -sfk "https://raw.githubusercontent.com/${G_ACCOUNT}/guild-operators-apex/${BRANCH}/files/docker/node/release-versions/cardano-node-latest.txt" || echo "9.2.1")"
+  [[ -z "${CARDANO_CLI_VERSION}" ]] && CARDANO_CLI_VERSION="$(curl -sfk "https://raw.githubusercontent.com/${G_ACCOUNT}/guild-operators-apex/${BRANCH}/files/docker/node/release-versions/cardano-cli-latest.txt" || echo "9.4.1.0")"
   CNODE_HOME="${CNODE_PATH}/${CNODE_NAME}"
   CNODE_VNAME=$(echo "$CNODE_NAME" | awk '{print toupper($0)}')
   [[ -z ${MITHRIL_HOME} ]] && MITHRIL_HOME="${CNODE_HOME}/mithril"
-  REPO="https://github.com/${G_ACCOUNT}/guild-operators"
-  REPO_RAW="https://raw.githubusercontent.com/${G_ACCOUNT}/guild-operators"
+  REPO="https://github.com/${G_ACCOUNT}/guild-operators-apex"
+  REPO_RAW="https://raw.githubusercontent.com/${G_ACCOUNT}/guild-operators-apex"
   URL_RAW="${REPO_RAW}/${BRANCH}"
   U_ID=$(id -u)
   G_ID=$(id -g)
@@ -410,8 +410,8 @@ download_cnodebins() {
   rm -f caddress.tar.gz
   [[ -f cardano-address ]] || err_exit " cardano-address archive downloaded but binary (cardano-address) not found after extracting package!"
   if [[ "${SKIP_DBSYNC_DOWNLOAD}" == "N" ]]; then
-    echo -e "\n  Downloading Cardano DB Sync 13.6.0.4 archive from GitHub.."
-    curl -m 200 -sfL https://github.com/IntersectMBO/cardano-db-sync/releases/download/13.6.0.4/cardano-db-sync-13.6.0.4-linux.tar.gz -o cnodedbsync.tar.gz || err_exit "  Could not download cardano-db-sync from release artefacts on GitHub!"
+    echo -e "\n  Downloading Cardano DB Sync 13.5.0.2 archive from GitHub.."
+    curl -m 200 -sfL https://github.com/IntersectMBO/cardano-db-sync/releases/download/13.5.0.2/cardano-db-sync-13.5.0.2-linux.tar.gz -o cnodedbsync.tar.gz || err_exit "  Could not download cardano-db-sync from release artefacts on GitHub!"
     #curl -m 200 -sfL "https://share.koios.rest/api/public/dl/xFdZDfM4/bin/cardano-db-sync-13.5.0.1-linux.tar.gz" -o cnodedbsync.tar.gz || err_exit "  Could not download cardano-db-sync from release artefacts on GitHub!"
     tar zxf cnodedbsync.tar.gz --strip-components 1 ./cardano-db-sync &>/dev/null
     [[ -f cardano-db-sync ]] || err_exit " cardano-db-sync archive downloaded but binary (cardano-db-sync) not found after extracting package!"
@@ -497,31 +497,19 @@ download_cardanohwcli() {
 # Download pre-built ogmios binary
 download_ogmios() {
   [[ -z ${ARCH##*aarch64*} ]] && err_exit "  The ogmios pre-compiled binary is not available for ARM, you might need to build them!"
-  echo -e "\nInstalling Ogmios"
-  if command -v ogmios >/dev/null; then ogmios_version="$(ogmios --version)" 2>/dev/null || ogmios_version="v0.0.0"; else ogmios_version="v0.0.0"; fi
+  echo -e "\n  Downloading Ogmios 6.8.0 archive from GitHub.."
   rm -rf /tmp/ogmios && mkdir /tmp/ogmios
   pushd /tmp/ogmios >/dev/null || err_exit
-  ogmios_asset_url="$(curl -s https://api.github.com/repos/CardanoSolutions/ogmios/releases | jq -r '.[].assets[].browser_download_url' | grep x86_64-linux.zip | head -1)"
-  if curl -sL -f -m ${CURL_TIMEOUT} -o ogmios.zip ${ogmios_asset_url}; then
-    unzip ogmios.zip &>/dev/null
-    rm -f ogmios.zip
-    [[ -f bin/ogmios ]] && OGMIOSPATH=bin/ogmios
-    [[ -f ogmios ]] && OGMIOSPATH=ogmios
-    [[ -n ${OGMIOSPATH} ]] || err_exit "ogmios downloaded but binary not found after extracting package!"
-    ogmios_git_version="$(curl -s https://api.github.com/repos/CardanoSolutions/ogmios/releases | jq -r '.[0].tag_name')"
-    if ! versionCheck "${ogmios_git_version}" "${ogmios_version}"; then
-      [[ "${ogmios_version}" = "0.0.0" ]] && echo -e "\n  latest version: ${ogmios_git_version}" || echo -e "\n  installed version: ${ogmios_version} | latest version: ${ogmios_git_version}"
-      chmod +x /tmp/ogmios/${OGMIOSPATH}
-      mv -f /tmp/ogmios/${OGMIOSPATH} "${HOME}"/.local/bin/
-      rm -f "${HOME}"/.cabal/bin/ogmios # Remove duplicate from $PATH
-      echo -e "\n  ogmios ${ogmios_git_version} installed!"
-    else
-      rm -rf /tmp/ogmios #cleanup in /tmp
-      echo -e "\n  ogmios already latest version [${ogmios_version}], skipping!"
-    fi
-  else
-    err_exit "Download of latest release of ogmios archive from GitHub failed! Please retry or manually install it."
-  fi
+  curl -m 200 -sfL https://github.com/CardanoSolutions/ogmios/releases/download/v6.8.0/ogmios-v6.8.0-x86_64-linux.zip -o ogmios.zip || err_exit "  Could not download Ogmios from release artefacts on GitHub!"
+  unzip ogmios.zip &>/dev/null
+  rm -f ogmios.zip
+  [[ -f bin/ogmios ]] && OGMIOSPATH=bin/ogmios
+  [[ -f ogmios ]] && OGMIOSPATH=ogmios
+  [[ -n ${OGMIOSPATH} ]] || err_exit "ogmios downloaded but binary not found after extracting package!"
+  chmod +x /tmp/ogmios/${OGMIOSPATH}
+  mv -f /tmp/ogmios/${OGMIOSPATH} "${HOME}"/.local/bin/
+  rm -f "${HOME}"/.cabal/bin/ogmios # Remove duplicate from $PATH
+  echo -e "\n  ogmios ${ogmios_git_version} installed!"
 }
 
 # Download pre-built cardano-signer binary
@@ -608,7 +596,7 @@ populate_cnode() {
   # Download node config, genesis and topology from template
   #NWCONFURL="https://raw.githubusercontent.com/input-output-hk/cardano-playground/main/static/book.play.dev.cardano.org/environments"
   NWCONFURL="${URL_RAW}/files/configs/${NETWORK}/"
-  if [[ ${NETWORK} =~ ^(mainnet|preprod|preview|guild|sanchonet)$ ]]; then
+  if [[ ${NETWORK} =~ ^(afpm)$ ]]; then
     curl -sL -f -m ${CURL_TIMEOUT} -o alonzo-genesis.json.tmp "${NWCONFURL}/alonzo-genesis.json" || err_exit "${err_msg} alonzo-genesis.json"
     curl -sL -f -m ${CURL_TIMEOUT} -o byron-genesis.json.tmp "${NWCONFURL}/byron-genesis.json" || err_exit "${err_msg} byron-genesis.json"
     curl -sL -f -m ${CURL_TIMEOUT} -o conway-genesis.json.tmp "${NWCONFURL}/conway-genesis.json" || err_exit "${err_msg} conway-genesis.json"
@@ -617,7 +605,7 @@ populate_cnode() {
     curl -sL -f -m ${CURL_TIMEOUT} -o config.json.tmp "${NWCONFURL}/config.json" || err_exit "${err_msg} config.json"
     curl -sL -f -m ${CURL_TIMEOUT} -o dbsync.json.tmp "${NWCONFURL}/db-sync-config.json" || err_exit "${err_msg} dbsync-sync-config.json"
   else
-    err_exit "Unknown network specified! Kindly re-check the network name, valid options are: mainnet, guild, preprod, preview or sanchonet."
+    err_exit "Unknown network specified! Kindly re-check the network name, valid options are: afpm."
   fi
   sed -e "s@/opt/cardano/cnode@${CNODE_HOME}@g" -i ./*.json.tmp
   if [[ ${FORCE_OVERWRITE} = 'Y' ]]; then
