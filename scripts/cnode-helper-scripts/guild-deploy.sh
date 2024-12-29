@@ -66,7 +66,7 @@ usage() {
 		The script will always update dynamic content from existing scripts retaining existing user variables
 
 		-n    Connect to specified network instead of afpm network (Default: connect to cardano afpm network) eg: -n afpt
-		-p    Parent folder path underneath which the top-level folder will be created (Default: /opt/cardano)
+		-p    Parent folder path underneath which the top-level folder will be created (Default: /opt/apex)
 		-t    Alternate name for top level folder - only alpha-numeric chars allowed (Default: cnode)
 		-b    Use alternate branch of scripts to download - only recommended for testing/development (Default: master)
 		-u    Skip update check for script itself
@@ -100,7 +100,7 @@ set_defaults() {
   [[ -z ${INSTALL_CWHCLI} ]] && INSTALL_CWHCLI='N'
   [[ -z ${INSTALL_OGMIOS} ]] && INSTALL_OGMIOS='N'
   [[ -z ${INSTALL_CSIGNER} ]] && INSTALL_CSIGNER='N'
-  [[ -z ${CNODE_PATH} ]] && CNODE_PATH="/opt/cardano"
+  [[ -z ${CNODE_PATH} ]] && CNODE_PATH="/opt/apex"
   [[ -z ${CNODE_NAME} ]] && CNODE_NAME='cnode'
   [[ -z ${CURL_TIMEOUT} ]] && CURL_TIMEOUT=60
   [[ -z ${UPDATE_CHECK} ]] && UPDATE_CHECK='Y'
@@ -607,7 +607,7 @@ populate_cnode() {
   else
     err_exit "Unknown network specified! Kindly re-check the network name, valid options are: afpm."
   fi
-  sed -e "s@/opt/cardano/cnode@${CNODE_HOME}@g" -i ./*.json.tmp
+  sed -e "s@/opt/apex/cnode@${CNODE_HOME}@g" -i ./*.json.tmp
   if [[ ${FORCE_OVERWRITE} = 'Y' ]]; then
     [[ -f topology.json ]] && cp -f topology.json "topology.json_bkp$(date +%s)"
     [[ -f config.json ]] && cp -f config.json "config.json_bkp$(date +%s)"
