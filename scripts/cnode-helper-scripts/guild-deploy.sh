@@ -607,7 +607,7 @@ populate_cnode() {
   else
     err_exit "Unknown network specified! Kindly re-check the network name, valid options are: afpm."
   fi
-  sed -e "s@/opt/apex/cnode@${CNODE_HOME}@g" -i ./*.json.tmp
+  sed -e "s@/opt/cardano/cnode@${CNODE_HOME}@g" -i ./*.json.tmp
   if [[ ${FORCE_OVERWRITE} = 'Y' ]]; then
     [[ -f topology.json ]] && cp -f topology.json "topology.json_bkp$(date +%s)"
     [[ -f config.json ]] && cp -f config.json "config.json_bkp$(date +%s)"
