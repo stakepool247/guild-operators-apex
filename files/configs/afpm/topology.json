@@ -3,16 +3,16 @@
     { "address": "bootstrap.prime.mainnet.apexfusion.org", "port": 5521 }
   ],
   "localRoots": [
-  ],
-  "publicRoots" : [
     {
       "accessPoints": [
         { "address": "relay-g1.prime.mainnet.apexfusion.org", "port": 5521 },
         { "address": "relay-g2.prime.mainnet.apexfusion.org", "port": 5521 }
       ],
       "advertise": true,
-      "valency": 1
+      "trustable": true,
+      "hotValency": 1
     }
   ],
+  "publicRoots" : [],
   "useLedgerAfterSlot": 0
 }
