@@ -89,8 +89,8 @@ usage() {
 
 # Set Default Environment Variables
 set_defaults() {
-  [[ -z ${G_ACCOUNT} ]] && G_ACCOUNT="Scitz0"
-  [[ -z ${NETWORK} ]] && NETWORK='afpm'
+  [[ -z ${G_ACCOUNT} ]] && G_ACCOUNT="StakePool247"
+  [[ -z ${NETWORK} ]] && NETWORK='aftn'
   [[ -z ${WANT_BUILD_DEPS} ]] && WANT_BUILD_DEPS='N'
   [[ -z ${FORCE_OVERWRITE} ]] && FORCE_OVERWRITE='N'
   [[ -z ${SCRIPTS_FORCE_OVERWRITE} ]] && SCRIPTS_FORCE_OVERWRITE='N'
