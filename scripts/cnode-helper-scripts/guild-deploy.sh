@@ -603,7 +603,7 @@ populate_cnode() {
     curl -sL -f -m ${CURL_TIMEOUT} -o shelley-genesis.json.tmp "${NWCONFURL}/shelley-genesis.json" || err_exit "${err_msg} shelley-genesis.json"
     curl -sL -f -m ${CURL_TIMEOUT} -o topology.json.tmp "${NWCONFURL}/topology.json" || err_exit "${err_msg} topology.json"
     curl -sL -f -m ${CURL_TIMEOUT} -o config.json.tmp "${NWCONFURL}/config.json" || err_exit "${err_msg} config.json"
-    curl -sL -f -m ${CURL_TIMEOUT} -o dbsync.json.tmp "${NWCONFURL}/db-sync-config.json" || err_exit "${err_msg} dbsync-sync-config.json"
+    #curl -sL -f -m ${CURL_TIMEOUT} -o dbsync.json.tmp "${NWCONFURL}/db-sync-config.json" || err_exit "${err_msg} dbsync-sync-config.json"
   else
     err_exit "Unknown network specified! Kindly re-check the network name, valid options are: afpm."
   fi
@@ -611,7 +611,7 @@ populate_cnode() {
   if [[ ${FORCE_OVERWRITE} = 'Y' ]]; then
     [[ -f topology.json ]] && cp -f topology.json "topology.json_bkp$(date +%s)"
     [[ -f config.json ]] && cp -f config.json "config.json_bkp$(date +%s)"
-    [[ -f dbsync.json ]] && cp -f dbsync.json "dbsync.json_bkp$(date +%s)"
+   # [[ -f dbsync.json ]] && cp -f dbsync.json "dbsync.json_bkp$(date +%s)"
   fi
   if [[ ${FORCE_OVERWRITE} = 'Y' || ! -f byron-genesis.json || ! -f shelley-genesis.json || ! -f alonzo-genesis.json || ! -f topology.json || ! -f config.json || ! -f dbsync.json ]]; then
     mv -f byron-genesis.json.tmp byron-genesis.json
@@ -620,7 +620,7 @@ populate_cnode() {
     mv -f conway-genesis.json.tmp conway-genesis.json
     mv -f topology.json.tmp topology.json
     mv -f config.json.tmp config.json
-    mv -f dbsync.json.tmp dbsync.json
+    #mv -f dbsync.json.tmp dbsync.json
   else
     rm -f byron-genesis.json.tmp
     rm -f shelley-genesis.json.tmp
@@ -628,7 +628,7 @@ populate_cnode() {
     rm -f conway-genesis.json.tmp
     rm -f topology.json.tmp
     rm -f config.json.tmp
-    rm -f dbsync.json.tmp
+    #rm -f dbsync.json.tmp
   fi
 
   pushd "${CNODE_HOME}"/scripts >/dev/null || err_exit
