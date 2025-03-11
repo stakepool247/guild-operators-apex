@@ -94,7 +94,7 @@ set_defaults() {
   [[ -z ${WANT_BUILD_DEPS} ]] && WANT_BUILD_DEPS='N'
   [[ -z ${FORCE_OVERWRITE} ]] && FORCE_OVERWRITE='N'
   [[ -z ${SCRIPTS_FORCE_OVERWRITE} ]] && SCRIPTS_FORCE_OVERWRITE='N'
-  [[ -z ${LIBSODIUM_FORK} ]] && LIBSODIUM_FORK='N'
+  [[ -z ${LIBSODIUM_FORK} ]] && LIBSODIUM_FORK='Y'
   [[ -z ${INSTALL_MITHRIL} ]] && INSTALL_MITHRIL='N'
   [[ -z ${INSTALL_CNCLI} ]] && INSTALL_CNCLI='N'
   [[ -z ${INSTALL_CWHCLI} ]] && INSTALL_CWHCLI='N'
@@ -135,6 +135,7 @@ set_defaults() {
 # Check and prompt/apply update for guild-deploy.sh itself
 update_check() {
   if curl -s -f -m ${CURL_TIMEOUT} -o "${PARENT}"/guild-deploy.sh.tmp ${URL_RAW}/scripts/cnode-helper-scripts/guild-deploy.sh 2>/dev/null; then
+    echo "this is the url $URL_RAW" 
     TEMPL_CMD=$(awk '/^# Do NOT modify/,0' "${PARENT}"/guild-deploy.sh)
     TEMPL2_CMD=$(awk '/^# Do NOT modify/,0' "${PARENT}"/guild-deploy.sh.tmp)
     if [[ "$(echo ${TEMPL_CMD} | sha256sum)" != "$(echo ${TEMPL2_CMD} | sha256sum)" ]]; then
