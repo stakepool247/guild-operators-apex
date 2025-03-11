@@ -4,20 +4,7 @@
   "publicRoots" : [
     { "accessPoints": [
         { "address": "relay-0.prime.testnet.apexfusion.org", "port": 5521 },
-        { "address": "relay-1.prime.testnet.apexfusion.org", "port": 5521 },
-        { "address": "167.235.223.34", "port": 5358 },
-        { "address": "213.239.234.66", "port": 5358 },
-        { "address": "15.235.84.202", "port": 5358 },
-	{ "address": "35.209.0.217", "port": 3001 },
-	{ "address": "127.0.0.1", "port": 3001 },
-	{ "address": "127.0.0.1", "port": 3002 },
-	{ "address": "127.0.0.1", "port": 3003 },
-        { "address": "127.0.0.1", "port": 3004 },
-        { "address": "127.0.0.1", "port": 3005 },
-        { "address": "127.0.0.1", "port": 3006 },
-	{ "address": "127.0.0.1", "port": 3007 },
-        { "address": "127.0.0.1", "port": 3008 },
-        { "address": "127.0.0.1", "port": 3009 }
+        { "address": "relay-1.prime.testnet.apexfusion.org", "port": 5521 }
       ],
       "advertise": true,
       "valency": 20
